@@ -1,0 +1,35 @@
+name: Practice yaml
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get code
+      uses: actions/checkout@v3
+    - name: install dependencies
+      run: npm ci
+    - name: Lint
+      run: npm run lint
+  test:
+    needs: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get code
+      uses: actions/checkout@v3
+    - name: install dependencies
+      run: npm ci
+    - name: Lint
+      run: npm run lint
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: dependencies install
+        run: npm ci
+      - name: Build code
+        run: npm run build
+      - name: deploy code
+        run: echo "Deploying....""
+
